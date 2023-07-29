@@ -11,7 +11,7 @@ function App({ Component, pageProps }) {
     <>
       <Head>
         <title>Shop Pay</title>
-        <meta name="description" content="Onlne shopping service." />
+        <meta name="description" content="Online shopping service." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
