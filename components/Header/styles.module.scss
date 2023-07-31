@@ -69,6 +69,33 @@
           width: 100%;
           padding: 0 1rem;
         }
+        ul {
+          li {
+            height: 30px;
+            a{
+            width: 100%;
+              padding-left: 1rem;
+            }
+            &:hover{
+              background: #eeeeeebe;
+            }
+          }
+        }
+        &__img{
+          width: 100px;
+          height: 100px;
+        }
+        .col{
+          display: flex;
+          flex-direction: column;
+          span{
+            &:last-of-type{
+              font-size: 14px;
+              color: $blue-color;
+              text-decoration: underline;
+            }
+          }
+        }
       }
   img {
     width: 28px;

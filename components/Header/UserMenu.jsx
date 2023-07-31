@@ -6,8 +6,10 @@ export default function UserMenu({ loggedIn }) {
             <div className={styles.menu}>
       <h4>Welcome to Shop-pay!</h4> {loggedIn ? ( <div className={styles.flex}>
      <img src="https://cdn2.iconfinder.com/data/icons/circle-avatars-1/128/050_girl_avatar_profile_woman_suit_student_officer-512.png"
-            alt="" className={styles.menu__img}          /> <div className={styles.col}> <span>Welcome Back,</span>
-            <h3>jdfjisdf</h3>
+            alt="" className={styles.menu__img}/>
+        <div className={styles.col}>
+          <span>Welcome Back,</span>
+            <h3>Milena</h3>
             <span>Sign out</span>
           </div>
         </div>
