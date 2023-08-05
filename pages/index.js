@@ -1,14 +1,11 @@
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
-import styles from '../styles/Home.module.scss'
-import Header from '../components/Header/'
-
-const inter = Inter({ subsets: ['latin'] })
+import Header from "../components/Header/";
+import Footer from "../components/Footer/";
 
 export default function Home() {
   return (
     <main>
-    <Header />
+      <Header />
+      <Footer />
     </main>
-  ) 
+  );
 }
