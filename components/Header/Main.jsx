@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import styles from './styles.module.scss';
-import Logo from './Logo';
+import Logo from '../Logo/Logo'; 
 import { RiSearch2Line } from 'react-icons/ri';
 import { FaOpencart } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
