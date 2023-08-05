@@ -15,10 +15,10 @@ const [loggedIn, setLoggedIn] = useState(true);
     <div></div>
       <ul className={styles.top__list}>
         <li className={styles.li}>
-<img src="https://opensource.com/sites/default/files/images/life-uploads/love.png"
+<img src="https://www.kindpng.com/picc/m/130-1309316_file-brazilian-flag-round-svg-brazil-flag-round.png"
 alt=""
 />
-          <span>Penguin / usd</span>
+          <span>Brazil / BRL </span>
         </li>
         <li className={styles.li}>
           <MdSecurity/>
