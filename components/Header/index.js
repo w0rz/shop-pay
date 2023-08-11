@@ -3,10 +3,12 @@ import Main from "./Main";
 import Top from "./Top";
 import styles from "./styles.module.scss";
 
-export default function Header() {  
-  return <header className={styles.header}>
-   <Ad />
-    <Top />
-    <Main />
-    </header>;
+export default function Header({ country }) {
+  return (
+    <header className={styles.header}>
+      <Ad />
+      <Top country={country} />
+      <Main />
+    </header>
+  );
 }
