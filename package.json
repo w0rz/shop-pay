@@ -16,8 +16,9 @@
     "axios": "^1.4.0",
     "eslint": "8.45.0",
     "eslint-config-next": "13.4.10",
+    "formik": "^2.4.3",
     "mongodb": "^5.7.0",
-    "mongoose": "^7.4.2",
+    "mongoose": "^7.4.3",
     "next": "13.4.10",
     "next-auth": "^4.23.0",
     "next-redux-wrapper": "^8.1.0",
@@ -28,10 +29,11 @@
     "redux": "^4.2.1",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.2",
-    "shop-pay": "link:"
+    "shop-pay": "link:",
+    "yup": "^1.2.0"
   },
   "devDependencies": {
-    "sass": "^1.64.2",
+    "sass": "^1.65.1",
     "typescript": "^5.1.6"
   }
 }
