@@ -1,28 +1,22 @@
-import styles from './styles.module.scss';
-import Link from 'next/link';
-import Logo from '../Logo/Logo'; 
+import styles from "./styles.module.scss";
+import Link from "next/link";
+import Logo from "../Logo/Logo";
 
 export default function Links() {
   return (
     <div className={styles.footer__links}>
-      {links.map((link,i)=>(
+      {links.map((link, i) => (
         <ul>
-          {
-            i === 0 ? ( <Logo /> ) : (<b>{link.heading}</b>)
-                    }
-            {
-              link.links.map((link)=>(
-              <li>
+          {i === 0 ? <Logo /> : <b>{link.heading}</b>}
+          {link.links.map((link) => (
+            <li>
               <Link href={link.link}>{link.name}</Link>
-              </li>
-              ))
-            }
+            </li>
+          ))}
         </ul>
-        ))
-      }
-
+      ))}
     </div>
-  )
+  );
 }
 
 const links = [
