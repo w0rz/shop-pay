@@ -8,20 +8,28 @@ import * as Yup from "yup";
 import LoginInput from "../components/Inputs/LoginInput";
 import { useState } from "react";
 import RoundButton from "../components/Buttons/RoundButton";
+import { getProviders, signIn } from "next-auth/react";
+import { SiAuth0, SiFacebook, SiGithub } from "react-icons/si";
+import { BsGoogle } from "react-icons/bs";
 
 const initialValues = {
   login_email: "",
   login_password: "",
 };
-
-export default function signin() {
+const rIcon = {
+  auth0: SiAuth0,
+  facebook: SiFacebook,
+  github: SiGithub,
+  google: BsGoogle,
+};
+export default function signin({ providers }) {
+  console.log(providers);
   const [user, setUser] = useState(initialValues);
   const { login_email, login_password } = user;
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
   };
-  console.log(user);
   const loginValidation = Yup.object({
     login_email: Yup.string()
       .required("Email address is required.")
@@ -77,10 +85,36 @@ export default function signin() {
                 </Form>
               )}
             </Formik>
+            <div className={styles.login__socials}>
+              <span className={styles.or}>Or continue with</span>
+              <div className={styles.login__socials_wrap}>
+                {providers.map((provider) => {
+                  const Icon = rIcon[provider.id];
+                  return (
+                    <div key={provider.name}>
+                      <button
+                        className={styles.social__btn}
+                        onClick={() => signIn(provider.id)}
+                      >
+                        {Icon && <Icon />}
+                        Sign in with {provider.name}
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
           </div>
         </div>
       </div>
       <Footer country="Brazil" />
     </>
   );
+}
+
+export async function getServerSideProps(context) {
+  const providers = Object.values(await getProviders());
+  return {
+    props: { providers },
+  };
 }
