@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { FaCircleUser } from "react-icons/fa";
 
 const userSchema = new mongoose.Schema(
   {
@@ -24,7 +23,7 @@ const userSchema = new mongoose.Schema(
     },
     image: {
       type: String,
-      default: <FaCircleUser />,
+      default: "https://cdn-icons-png.flaticon.com/512/272/272075.png",
     },
     emailVerified: {
       type: Boolean,
@@ -78,6 +77,6 @@ const userSchema = new mongoose.Schema(
   },
 );
 
-const User = mongoose.models.User || mongoose.modle("User", userSchema);
+const User = mongoose.models.User || mongoose.model("User", userSchema);
 
 export default User;
