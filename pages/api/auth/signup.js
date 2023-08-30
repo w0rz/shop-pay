@@ -1,5 +1,8 @@
+import bcrypt from "bcrypt";
 import db from "../../../utils/db";
 import validateEmail from "../../../utils/validation";
+import User from "../../../models/User";
+import createActivationToken from "../../../utils/tokens";
 
 export default async function handler(req, res) {
   try {
@@ -11,7 +14,23 @@ export default async function handler(req, res) {
     if (!validateEmail(email)) {
       return res.status(400).json({ message: "Invalid email" });
     }
-    r;
+    const user = await User.findOne({ email });
+    if (user) {
+      return res.status(400).json({ message: "This email already exists." });
+    }
+    if (password.length < 6) {
+      return res
+        .status(400)
+        .json({ message: "Password must be at least 6 characters." });
+    }
+    const cryptedPassword = await bcrypt.hash(password, 12);
+    const newUser = new User({ name, email, password: cryptedPassword });
+    const addedUser = await newUser.save();
+    const actv_token = createActivationToken({
+      id: addedUser._id.toString(),
+    });
+    console.log(actv_token);
+    res.send(actv_token);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
