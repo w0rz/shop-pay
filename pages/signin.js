@@ -11,14 +11,17 @@ import RoundButton from "../components/Buttons/RoundButton";
 import { getProviders, signIn } from "next-auth/react";
 import { SiAuth0, SiFacebook, SiGithub } from "react-icons/si";
 import { BsGoogle } from "react-icons/bs";
+import axios from "axios";
 
 const initialValues = {
   login_email: "",
   login_password: "",
-  full_name: "",
+  name: "",
   email: "",
   password: "",
   confirm_password: "",
+  success: "",
+  error: "",
 };
 const rIcon = {
   auth0: SiAuth0,
@@ -27,15 +30,17 @@ const rIcon = {
   google: BsGoogle,
 };
 export default function signin({ providers }) {
-  console.log(providers);
+  const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(initialValues);
   const {
     login_email,
     login_password,
-    full_name,
+    name,
     email,
     password,
     confirm_password,
+    success,
+    error,
   } = user;
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -48,7 +53,7 @@ export default function signin({ providers }) {
     login_password: Yup.string().required("Please enter a password"),
   });
   const registerValidation = Yup.object({
-    full_name: Yup.string()
+    name: Yup.string()
       .required("what's your name?")
       .min(2, "First name must be between 2 and 16 characters.")
       .max(16, "First name must be between 2 and 16 characters.")
@@ -68,6 +73,29 @@ export default function signin({ providers }) {
       .required("Confirm your password.")
       .oneOf([Yup.ref("password")], "Passwords must match."),
   });
+
+  const signUpHandler = async () => {
+    console.log("signuphandler called");
+    try {
+      setLoading(true);
+      const { data } = await axios.post("/api/auth/signup", {
+        name,
+        email,
+        password,
+      });
+      setUser({ ...user, success: data.message });
+      setLoading(false);
+    } catch (error) {
+      console.error("error:", error);
+      console.error("error responde:", error.response);
+      setLoading(false);
+      setUser({
+        ...user,
+        success: "",
+        error: error.response?.data?.message || "something went wrong!",
+      });
+    }
+  };
   return (
     <>
       <Header country="Brazil" />
@@ -150,18 +178,21 @@ export default function signin({ providers }) {
             <Formik
               enableReinitialize
               initialValues={{
-                full_name,
+                name,
                 email,
                 password,
                 confirm_password,
               }}
               validationSchema={registerValidation}
+              onSubmit={() => {
+                signUpHandler();
+              }}
             >
               {(form) => (
                 <Form>
                   <LoginInput
                     type="text"
-                    name="full_name"
+                    name="name"
                     icon="user"
                     placeholder="Full Name"
                     onChange={handleChange}
@@ -191,6 +222,8 @@ export default function signin({ providers }) {
                 </Form>
               )}
             </Formik>
+            <div>{error && <span>{success}</span>}</div>
+            <div>{error && <span>{error}</span>}</div>
           </div>
         </div>
         {/* Sing up End */}
