@@ -3,6 +3,7 @@ import db from "../../../utils/db";
 import validateEmail from "../../../utils/validation";
 import User from "../../../models/User";
 import createActivationToken from "../../../utils/tokens";
+import { sendEmail } from "../../../utils/sendEmails";
 
 export default async function handler(req, res) {
   try {
@@ -29,8 +30,13 @@ export default async function handler(req, res) {
     const actv_token = createActivationToken({
       id: addedUser._id.toString(),
     });
-    console.log(actv_token);
-    res.send(actv_token);
+    const url = `${process.env.BASE_URL}/activate/${actv_token}`;
+    sendEmail(email, url, "", "Activate your account.");
+    await db.disconnectDb();
+    res.json({
+      message:
+        "Registration successful! Please check your email to activate your account and get started.",
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
