@@ -6,7 +6,6 @@ import { useField, ErrorMessage } from "formik";
 
 export default function LoginInput({ icon, placeholder, ...props }) {
   const [field, meta] = useField(props);
-  console.log(meta);
   return (
     <div
       className={`${styles.input} ${
