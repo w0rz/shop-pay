@@ -131,3 +131,11 @@
     fill: #222;
   }
 }
+.success {
+  padding: 10px;
+  color: $success-color;
+}
+.error {
+  padding: 10px;
+  color: $error-color;
+}
