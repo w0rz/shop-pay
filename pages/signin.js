@@ -11,7 +11,9 @@ import RoundButton from "../components/Buttons/RoundButton";
 import { getProviders, signIn } from "next-auth/react";
 import { SiAuth0, SiFacebook, SiGithub } from "react-icons/si";
 import { BsGoogle } from "react-icons/bs";
+import PacLoader from "../components/Loaders/pacLoader/index";
 import axios from "axios";
+import Router from "next/router";
 
 const initialValues = {
   login_email: "",
@@ -85,19 +87,21 @@ export default function signin({ providers }) {
       });
       setUser({ ...user, success: data.message });
       setLoading(false);
+      setTimeout(() => {
+        Router.push("/");
+      }, 2000);
     } catch (error) {
-      console.error("error:", error);
-      console.error("error responde:", error.response);
       setLoading(false);
       setUser({
         ...user,
         success: "",
-        error: error.response?.data?.message || "something went wrong!",
+        error: error.response.data.message,
       });
     }
   };
   return (
     <>
+      {loading && <PacLoader Loading={loading} />}
       <Header country="Brazil" />
       <div className={styles.login}>
         <div className={styles.login__container}>
@@ -222,8 +226,10 @@ export default function signin({ providers }) {
                 </Form>
               )}
             </Formik>
-            <div>{error && <span>{success}</span>}</div>
-            <div>{error && <span>{error}</span>}</div>
+            <div>
+              {success && <span className={styles.success}>{success}</span>}
+            </div>
+            <div>{error && <span className={styles.error}>{error}</span>}</div>
           </div>
         </div>
         {/* Sing up End */}
