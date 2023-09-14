@@ -24,6 +24,7 @@ const initialValues = {
   confirm_password: "",
   success: "",
   error: "",
+  login_error: "",
 };
 const rIcon = {
   auth0: SiAuth0,
@@ -43,6 +44,7 @@ export default function signin({ providers }) {
     confirm_password,
     success,
     error,
+    login_error,
   } = user;
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -77,7 +79,6 @@ export default function signin({ providers }) {
   });
 
   const signUpHandler = async () => {
-    console.log("signuphandler called");
     try {
       setLoading(true);
       const { data } = await axios.post("/api/auth/signup", {
@@ -87,9 +88,15 @@ export default function signin({ providers }) {
       });
       setUser({ ...user, success: data.message });
       setLoading(false);
-      setTimeout(() => {
+      setTimeout(async () => {
+        let options = {
+          redirect: false,
+          email: email,
+          password: password,
+        };
+        const res = await signIn("credentials", options);
         Router.push("/");
-      }, 2000);
+      }, 1000);
     } catch (error) {
       setLoading(false);
       setUser({
@@ -99,6 +106,24 @@ export default function signin({ providers }) {
       });
     }
   };
+  const signInHandler = async () => {
+    setLoading(true);
+    let options = {
+      redirect: false,
+      email: login_email,
+      password: login_password,
+    };
+    const res = await signIn("credentials", options);
+    setUser({ ...user, success: "", error: "" });
+    setLoading(false);
+    if (res?.error) {
+      setLoading(false);
+      setUser({ ...user, login_error: res?.error });
+    } else {
+      return Router.push("/");
+    }
+  };
+
   return (
     <>
       {loading && <PacLoader Loading={loading} />}
@@ -125,6 +150,9 @@ export default function signin({ providers }) {
                 login_password,
               }}
               validationSchema={loginValidation}
+              onSubmit={() => {
+                signInHandler();
+              }}
             >
               {(form) => (
                 <Form>
@@ -143,6 +171,10 @@ export default function signin({ providers }) {
                     onChange={handleChange}
                   />
                   <RoundButton type="submit" text="Sign in" />
+                  {login_error && (
+                    <span className={styles.error}>{login_error}</span>
+                  )}
+
                   <div className={styles.forgot}>
                     <Link href="/forget">Forgot password ?</Link>
                   </div>
@@ -238,7 +270,6 @@ export default function signin({ providers }) {
     </>
   );
 }
-
 export async function getServerSideProps(context) {
   const providers = Object.values(await getProviders());
   return {
