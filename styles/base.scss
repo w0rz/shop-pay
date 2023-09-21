@@ -28,3 +28,11 @@ $success-color: #6cc070;
   width: 100%;
   border-radius: 2px;
 }
+.success {
+  padding: 10px;
+  color: $success-color;
+}
+.error {
+  padding: 10px;
+  color: $error-color;
+}
