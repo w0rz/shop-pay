@@ -5,3 +5,8 @@ export default function createAcivationToken(payload) {
     expiresIn: "2d",
   });
 }
+export function createResetToken(payload) {
+  return jwt.sign(payload, process.env.RESET_TOKEN_SECRET, {
+    expiresIn: "6h",
+  });
+}
