@@ -12,14 +12,14 @@ export default async function handler(req, res) {
     const { email } = req.body;
     const user = await User.findOne({ email });
     if (!user) {
-      return res.json({ message: "This email does not exist." });
+      return res.status(400).json({ message: "This email does not exist." });
     } else {
     }
     const user_id = createResetToken({
       id: user._id.toString(),
     });
     const url = `${process.env.BASE_URL}/auth/reset/${user_id}`;
-    sendEmail(email, url, "", "Activate your account.", resetEmailTemplate);
+    sendEmail(email, url, "", "Reset your password.", resetEmailTemplate);
     await db.disconnectDb();
     res.json({
       message:
