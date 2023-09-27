@@ -176,7 +176,7 @@ export default function signin({ providers }) {
                   )}
 
                   <div className={styles.forgot}>
-                    <Link href="/forget">Forgot password ?</Link>
+                    <Link href="/auth/forgot">Forgot password ?</Link>
                   </div>
                 </Form>
               )}
