@@ -4,6 +4,11 @@ $grey-color: #f8f8f8;
 $light-error-color: #fd010169;
 $error-color: #ed4337;
 $success-color: #6cc070;
+.container {
+  max-width: 1550px;
+  margin: 0 auto;
+  padding: 1rem;
+}
 .btn_primary {
   display: flex;
   align-items: center;
@@ -35,4 +40,41 @@ $success-color: #6cc070;
 .error {
   padding: 10px;
   color: $error-color;
+}
+.swiper {
+  border-radius: 10px;
+  box-shadow: $shadow-1;
+}
+
+.mainSwiper {
+  .swiper-slide img {
+    height: 300px;
+    border-radius: 10px;
+    box-shadow: $shadow-1;
+  }
+  .swiper-pagination-bullet {
+    width: 9px;
+    border-radius: 5px;
+  }
+
+  .swiper-pagination-bullet-active {
+    background: $blue-color;
+    width: 13px;
+  }
+
+  .swiper-button-next,
+  .swiper-button-prev {
+    color: #fff;
+    transform: scale(0.5);
+    width: 50px;
+    height: 80px;
+    transition: 0.2s;
+    background: #666;
+  }
+  .swiper-button-prev {
+    left: -13px;
+  }
+  .swiper-button-next {
+    right: -13px;
+  }
 }
