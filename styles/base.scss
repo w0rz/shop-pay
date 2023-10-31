@@ -44,9 +44,20 @@ $success-color: #6cc070;
 .swiper {
   border-radius: 10px;
   box-shadow: $shadow-1;
+  cursor: pointer;
+  &:hover {
+    .swiper-button-prev,
+    .swiper-button-next {
+      display: grid;
+    }
+  }
 }
 
 .mainSwiper {
+  .swiper {
+    border-radius: 10px;
+    overflow: hidden;
+  }
   .swiper-slide img {
     height: 300px;
     border-radius: 10px;
@@ -58,7 +69,7 @@ $success-color: #6cc070;
   }
 
   .swiper-pagination-bullet-active {
-    background: $blue-color;
+    background: #fff;
     width: 13px;
   }
 
@@ -70,6 +81,8 @@ $success-color: #6cc070;
     height: 80px;
     transition: 0.2s;
     background: #666;
+    display: none;
+    place-items: center;
   }
   .swiper-button-prev {
     left: -13px;
