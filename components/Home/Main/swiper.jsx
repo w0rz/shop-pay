@@ -6,13 +6,13 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/scss";
 import "swiper/scss/pagination";
 import "swiper/scss/navigation";
-
+import styles from "./styles.module.scss";
 // import required modules
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 
 export default function MainSwiper() {
   return (
-    <>
+    <div className={styles.swiper}>
       <Swiper
         slidesPerView={1}
         spaceBetween={30}
@@ -34,6 +34,6 @@ export default function MainSwiper() {
           </SwiperSlide>
         ))}
       </Swiper>
-    </>
+    </div>
   );
 }
