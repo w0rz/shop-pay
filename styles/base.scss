@@ -1,6 +1,9 @@
 $shadow-1: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 $blue-color: #2f82ff;
 $grey-color: #f8f8f8;
+$yellow-color: #fac80f;
+$violet-color: #5a31f4;
+$redish-color: #f15f6f;
 $light-error-color: #fd010169;
 $error-color: #ed4337;
 $success-color: #6cc070;
@@ -53,10 +56,12 @@ $success-color: #6cc070;
   }
 }
 
-.mainSwiper {
+.mainSwiper,
+.offers_swiper {
   .swiper {
     border-radius: 10px;
     overflow: hidden;
+    position: relative;
   }
   .swiper-slide img {
     height: 300px;
@@ -76,12 +81,14 @@ $success-color: #6cc070;
   .swiper-button-next,
   .swiper-button-prev {
     color: #fff;
-    transform: scale(0.5);
+    transform: scale(0.5) translateY(-50%);
     width: 50px;
     height: 80px;
     transition: 0.2s;
     background: #666;
     display: none;
+    position: absolute;
+    top: 50%;
     place-items: center;
   }
   .swiper-button-prev {
@@ -89,5 +96,68 @@ $success-color: #6cc070;
   }
   .swiper-button-next {
     right: -13px;
+  }
+}
+.offers_swiper {
+  height: 220px;
+  max-width: 516px;
+  transform: translateX(35%);
+  .swiper {
+    width: 100%;
+    height: 100%;
+  }
+
+  .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    display: flex;
+    border-radius: 10px;
+    height: 90%;
+    flex: 0 0 auto;
+    margin-top: 0.6rem;
+    box-shadow: $shadow-1;
+    &:hover {
+      transform: scale(1.03);
+      transition: 0.3;
+    }
+    span {
+      position: absolute;
+      color: #fff;
+      &:first-of-type {
+        bottom: 5px;
+        left: 20px;
+        width: 90px;
+        height: 25px;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: 600;
+        background: $yellow-color;
+      }
+      &:last-of-type {
+        font-style: italic;
+        top: -5px;
+        right: -3px;
+        padding: 6px 0 0 1px;
+        background: $redish-color;
+        height: 38px;
+        width: 38px;
+        border-radius: 50%;
+        place-items: center;
+        font-size: 16px;
+        font-weight: 600;
+        box-shadow: $shadow-1;
+      }
+    }
+  }
+
+  .swiper-slide img {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .swiper-pagination {
+    display: none;
   }
 }
